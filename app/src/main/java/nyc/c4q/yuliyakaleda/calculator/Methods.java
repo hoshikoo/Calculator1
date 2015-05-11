@@ -55,16 +55,17 @@ public class Methods {
         }
         else {
 
+           result = "" + Math.log(a);
         }
         return result;
     }
 
-    public static double toPower (int a, int b) {
-        int result = a;
-        for (int i = 0; i < b-1; i ++) {
-            result = result * a;
-        }
-        return result;
+    public static double toPower (double a, double b) {
+        return Math.pow(a, b);
+    }
+
+    public static double EtoPower (double b) {
+        return Math.exp(b);
     }
 
 
