@@ -2,10 +2,7 @@ package nyc.c4q.yuliyakaleda.calculator;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
-import android.util.TypedValue;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 

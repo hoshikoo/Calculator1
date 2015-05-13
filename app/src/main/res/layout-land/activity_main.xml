@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:gravity="right"
-        android:maxLength="9"
+        android:maxLength="13"
         android:background="#E0E0E0"
         android:layout_marginTop="40dp"/>
 
