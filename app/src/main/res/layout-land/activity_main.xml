@@ -1,103 +1,30 @@
-<?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:weightSum="1"
-    android:background="#4CAF50">
+    android:background="#4CAF50" >
 
 
     <TextView
         android:id="@+id/enter_numbers"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="30dp"
-        android:layout_marginTop="49dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
         android:gravity="right"
-        android:background="#BDBDBD"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:maxLength="9"
+        android:background="#E0E0E0"
+        android:layout_marginTop="40dp"/>
 
 
     <TableLayout
+        android:id="@+id/table"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:layout_gravity ="center"
-        android:background="#4CAF50">
-
-        <TableRow
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_gravity="center"
-            android:gravity="center">
-
-            <Button
-                android:id="@+id/sin"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/sin" />
-
-            <Button
-                android:id="@+id/cos"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/cos" />
-
-
-
-            <Button
-                android:id="@+id/tan"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/tan" />
-
-
-            <Button
-                android:id="@+id/button_dot"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/bDot"
-                android:layout_marginRight="20dp"/>
-
-
-
-            <Button
-                android:id="@+id/AC"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/AC"
-                android:background="#F4511E"/>
-
-
-            <Button
-                android:id="@+id/sum"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/sum" />
-
-            <Button
-                android:id="@+id/subtraction"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/subtraction" />
-
-
-            <Button
-                android:id="@+id/division"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/division" />
-
-        </TableRow>
+        android:background="#4CAF50"
+        android:layout_below="@+id/enter_numbers"
+        android:layout_marginTop="40dp">
 
         <TableRow
             android:layout_width="fill_parent"
@@ -110,14 +37,18 @@
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/ln" />
+                android:text="@string/ln"
+                android:layout_column="0"
+                android:layout_weight="1"/>
 
             <Button
                 android:id="@+id/button_log"
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/log"/>
+                android:text="@string/log"
+                android:layout_column="1"
+                android:layout_weight="1"/>
 
 
             <Button
@@ -125,7 +56,9 @@
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/one_division_x" />
+                android:text="@string/one_division_x"
+                android:layout_column="2"
+                android:layout_weight="1"/>
 
             <Button
                 android:id="@+id/button_abs"
@@ -133,6 +66,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/abs"
+                android:layout_weight="1"
+                android:layout_column="3"
                 android:layout_marginRight="20dp"/>
 
 
@@ -142,7 +77,9 @@
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/b9" />
+                android:text="@string/b9"
+                android:layout_column="4"
+                android:layout_weight="1"/>
 
 
             <Button
@@ -150,14 +87,18 @@
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/b8" />
+                android:text="@string/b8"
+                android:layout_column="5"
+                android:layout_weight="1"/>
 
             <Button
                 android:id="@+id/button_7"
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/b7" />
+                android:text="@string/b7"
+                android:layout_column="6"
+                android:layout_weight="1"/>
 
 
             <Button
@@ -165,7 +106,9 @@
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/multiplication" />
+                android:text="@string/multiplication"
+                android:layout_column="7"
+                android:layout_weight="1"/>
 
         </TableRow>
 
@@ -180,14 +123,18 @@
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/y_pow_x" />
+                android:text="@string/y_pow_x"
+                android:layout_column="0"
+                android:layout_weight="1"/>
 
             <Button
                 android:id="@+id/button_PI"
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/PI" />
+                android:text="@string/PI"
+                android:layout_column="1"
+                android:layout_weight="1"/>
 
 
             <Button
@@ -195,7 +142,9 @@
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/E" />
+                android:text="@string/E"
+                android:layout_column="2"
+                android:layout_weight="1"/>
 
             <Button
                 android:id="@+id/button_e_pow_x"
@@ -203,6 +152,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/e_pow_x"
+                android:layout_weight="1"
+                android:layout_column="3"
                 android:layout_marginRight="20dp"/>
 
 
@@ -212,7 +163,9 @@
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/b6" />
+                android:text="@string/b6"
+                android:layout_column="4"
+                android:layout_weight="1"/>
 
 
             <Button
@@ -220,14 +173,18 @@
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/b5" />
+                android:text="@string/b5"
+                android:layout_column="5"
+                android:layout_weight="1"/>
 
             <Button
                 android:id="@+id/button_4"
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/b4" />
+                android:text="@string/b4"
+                android:layout_column="6"
+                android:layout_weight="1"/>
 
 
             <Button
@@ -235,7 +192,9 @@
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/equal" />
+                android:text="@string/equal"
+                android:layout_column="7"
+                android:layout_weight="1"/>
 
         </TableRow>
 
@@ -251,14 +210,18 @@
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/closed_parenthesis" />
+                android:text="@string/closed_parenthesis"
+                android:layout_column="0"
+                android:layout_weight="1"/>
 
             <Button
                 android:id="@+id/open_parenthesis"
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/open_parenthesis" />
+                android:text="@string/open_parenthesis"
+                android:layout_column="1"
+                android:layout_weight="1"/>
 
 
             <Button
@@ -266,7 +229,9 @@
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="x^2" />
+                android:layout_column="2"
+                android:text="x^2"
+                android:layout_weight="1"/>
 
             <Button
                 android:id="@+id/button_happy"
@@ -274,7 +239,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Happy"
-                android:layout_marginRight="20dp"/>
+                android:layout_column="3"
+                android:layout_marginRight="20dp"
+                android:layout_weight="1"/>
 
 
 
@@ -283,7 +250,9 @@
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/b3" />
+                android:text="@string/b3"
+                android:layout_column="4"
+                android:layout_weight="1"/>
 
 
             <Button
@@ -291,14 +260,18 @@
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/b2" />
+                android:text="@string/b2"
+                android:layout_column="5"
+                android:layout_weight="1"/>
 
             <Button
                 android:id="@+id/button_1"
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/b1" />
+                android:text="@string/b1"
+                android:layout_column="6"
+                android:layout_weight="1"/>
 
 
             <Button
@@ -306,10 +279,98 @@
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/b0" />
+                android:text="@string/b0"
+                android:layout_column="7"
+                android:layout_weight="1"/>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/sin"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sin"
+                android:layout_column="0"
+                android:layout_weight="1"/>
+
+            <Button
+                android:id="@+id/cos"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/cos"
+                android:layout_column="1"
+                android:layout_weight="1"/>
+
+
+            <Button
+                android:id="@+id/tan"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tan"
+                android:layout_column="2"
+                android:layout_weight="1"/>
+
+            <Button
+                android:id="@+id/button_dot"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/bDot"
+                android:layout_weight="1"
+                android:layout_column="3"
+                android:layout_marginRight="20dp"/>
+
+
+
+            <Button
+                android:id="@+id/AC"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/AC"
+                android:layout_column="4"
+                android:layout_weight="1"/>
+
+
+            <Button
+                android:id="@+id/sum"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sum"
+                android:layout_column="5"
+                android:layout_weight="1"/>
+
+            <Button
+                android:id="@+id/subtraction"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/subtraction"
+                android:layout_column="6"
+                android:layout_weight="1"/>
+
+
+            <Button
+                android:id="@+id/division"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/division"
+                android:layout_column="7"
+                android:layout_weight="1"/>
 
         </TableRow>
 
     </TableLayout>
 
-</LinearLayout>
+</RelativeLayout>
