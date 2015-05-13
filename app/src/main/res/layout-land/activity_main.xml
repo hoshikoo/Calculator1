@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:weightSum="1">
+    android:weightSum="1"
+    android:background="#4CAF50">
 
 
     <TextView
@@ -14,12 +15,16 @@
         android:layout_marginBottom="30dp"
         android:layout_marginTop="49dp"
         android:gravity="right"
+        android:background="#BDBDBD"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
 
     <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_gravity ="center"
+        android:background="#4CAF50">
 
         <TableRow
             android:layout_width="fill_parent"
@@ -42,12 +47,14 @@
                 android:text="@string/cos" />
 
 
+
             <Button
                 android:id="@+id/tan"
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/tan" />
+
 
             <Button
                 android:id="@+id/button_dot"
@@ -64,7 +71,8 @@
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/AC" />
+                android:text="@string/AC"
+                android:background="#F4511E"/>
 
 
             <Button

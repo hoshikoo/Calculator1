@@ -2,8 +2,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
-    >
+    android:background="#4CAF50">
 
 
     <TextView
@@ -12,6 +11,7 @@
         android:id="@+id/enter_numbers"
         android:gravity="right"
         android:textAppearance="?android:attr/textAppearanceLarge"
+        android:background="#E0E0E0"
         android:layout_marginTop="49dp"
         android:layout_marginBottom="30dp" />
 
@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:layout_gravity ="center"
-        android:background="#FFFFFF"
+        android:background="#4CAF50"
         android:id="@+id/table"
         android:layout_below="@+id/enter_numbers">
 
@@ -35,7 +35,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/AC"
                 android:id="@+id/AC"
-                android:layout_column="5" />
+                android:layout_column="5"
+                android:background="#FF5722"/>
 
             <Button
                 android:layout_width="wrap_content"
@@ -97,14 +98,6 @@
                 android:text="@string/division"
                 android:id="@+id/division"
                 android:layout_column="5" />
-
-        </TableRow>
-
-        <TableRow
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:gravity="center"
-            android:layout_gravity ="center">
 
         </TableRow>
 

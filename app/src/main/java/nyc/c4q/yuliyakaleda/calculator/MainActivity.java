@@ -167,9 +167,6 @@ public class MainActivity extends ActionBarActivity {
                         case R.id.closed_parenthesis:
                             display.append(bClosedParen.getText());
                             break;
-                        case R.id.b_equal:
-                            display.setText(result);
-                            break;
                     }
                 }
             });
@@ -214,7 +211,7 @@ public class MainActivity extends ActionBarActivity {
             bLN.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    display.append("LN");
+                    display.append("ln");
                 }
             });
         }
@@ -259,7 +256,7 @@ public class MainActivity extends ActionBarActivity {
             bPI.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    display.append("PI");
+                    display.append("pi");
                 }
             });
         }
@@ -299,6 +296,16 @@ public class MainActivity extends ActionBarActivity {
                 }
             });
         }
+
+        bEqual.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String input = display.getText().toString();
+                result = Parser.parse(input);
+                display.setText(result);
+            }
+        });
+
 
         if(savedInstanceState!=null) {
            String displayResult = savedInstanceState.getString(DISPLAY_RESULT_KEY);
