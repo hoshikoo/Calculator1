@@ -30,14 +30,11 @@ public class MainActivity extends ActionBarActivity {
 
     private static final String CHOSEN_THEME_ID = "chosen_theme_id";
     private static final String DISPLAY_COLOR_KEY = "colorChanges" ;
-
     private static final String DISPLAY_BACKGROUND_COLOR="table_background_color";
     private static final String DISPLAY_FONT="display_font";
 
+    private static final String DISPLAY_RESULT_KEY = "displayResult";
 
-    LinearLayout portraitLayout;
-    RelativeLayout landscapeLayout;
-    TableLayout table;
     TextView display;
 
     Button bClear;
@@ -75,11 +72,7 @@ public class MainActivity extends ActionBarActivity {
     Button b9;
     Button b0;
 
-    private static final String DISPLAY_RESULT_KEY = "displayResult";
 
-
-    int currentScreenColor;
-    ArrayList<Button> buttons;
     String result = "testing";
 
 
@@ -147,7 +140,7 @@ public class MainActivity extends ActionBarActivity {
         soundSwitch = (Switch) findViewById(R.id.sound_switch);
 
         //set the switch to on
-        soundSwitch.setChecked(true);
+        soundSwitch.setChecked(false);
         //attach a listener to check for changes in state
         soundSwitch.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 
@@ -232,9 +225,6 @@ public class MainActivity extends ActionBarActivity {
         buttons.add(bEqual);
 
 
-        portraitLayout = (LinearLayout) findViewById(R.id.portrait);
-        landscapeLayout = (RelativeLayout) findViewById(R.id.landscape);
-        table = (TableLayout) findViewById(R.id.table);
 
 
         for (Button b : buttons) {
@@ -246,7 +236,6 @@ public class MainActivity extends ActionBarActivity {
         mMediaPlayer3 = MediaPlayer.create(getApplicationContext(), R.raw.clicksound2);
         mMediaPlayer4 = MediaPlayer.create(getApplicationContext(), R.raw.robotblip);
         mMediaPlayer5 = MediaPlayer.create(getApplicationContext(), R.raw.ringingsound);
-
 
 
         for (Button btn : buttons) {
@@ -511,7 +500,7 @@ public class MainActivity extends ActionBarActivity {
         if (savedInstanceState != null) {
             String displayResult = savedInstanceState.getString(DISPLAY_RESULT_KEY);
             display.setText(displayResult);
-            getUserSelectionStyle(currentScreenColor);
+            //getUserSelectionStyle(currentScreenColor);
         }
     }
 
@@ -527,7 +516,6 @@ public class MainActivity extends ActionBarActivity {
         outState.putString(DISPLAY_FONT, fontsFamily);
         outState.putString(DISPLAY_RESULT_KEY, display.getText().toString());
 
-        outState.putInt(DISPLAY_COLOR_KEY, currentScreenColor);
     }
 
     @Override
@@ -549,7 +537,7 @@ public class MainActivity extends ActionBarActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        TableLayout tableLayout = (TableLayout) findViewById(R.id.table);
+
         LinearLayout relativeLayout = (LinearLayout )findViewById(R.id.main_layout);
 
         switch (item.getItemId()) {
@@ -637,15 +625,11 @@ public class MainActivity extends ActionBarActivity {
         }
 
         if (tableBackgroundColor != 0) {
-            //tableLayout.setBackgroundColor(tableBackgroundColor);
+
             relativeLayout.setBackgroundColor(tableBackgroundColor);
         }
 
         Toast.makeText(MainActivity.this, item.getTitle(), Toast.LENGTH_SHORT).show();
-
-        currentScreenColor = item.getItemId();
-        getUserSelectionStyle(currentScreenColor);
-//        return true;
 
         return super.onOptionsItemSelected(item);
     }
@@ -667,82 +651,6 @@ public class MainActivity extends ActionBarActivity {
         int Idx = ran.nextInt(8);
         return jokes.get(Idx);
     }
-
-    //method that sets a certain shade of color for all the layout elements
-    public void getUserSelectionStyle(int itemId) {
-        ArrayList<Button> colorButtons = new ArrayList<Button>();
-        colorButtons.addAll(buttons);
-        colorButtons.add(bSin);
-        colorButtons.add(bCos);
-        colorButtons.add(bTan);
-        colorButtons.add(bLN);
-        colorButtons.add(bLog);
-        colorButtons.add(bOneDivideX);
-        colorButtons.add(bAbs);
-        colorButtons.add(bYToPowX);
-        colorButtons.add(bPI);
-        colorButtons.add(bE);
-        colorButtons.add(bEToPowX);
-        colorButtons.add(bXToPow2);
-        colorButtons.add(bPerCent);
-        colorButtons.add(bCurious);
-
-        for (Button btn : colorButtons) {
-            if (btn != null) {
-
-                //green shades
-                if (itemId == R.id.green) {
-                    btn.setBackgroundResource(R.drawable.test4);
-                    display.setBackgroundResource(R.color.green2);
-                    if (portraitLayout != null) {
-                        portraitLayout.setBackgroundResource(R.color.green2);
-                    } else {
-                        table.setBackgroundResource(R.color.green2);
-                        landscapeLayout.setBackgroundResource(R.color.green2);
-                    }
-
-                }
-
-                //red shades
-                else if (itemId == R.id.red) {
-                    btn.setBackgroundResource(R.drawable.test1);
-                    display.setBackgroundResource(R.color.red2);
-                    if (portraitLayout != null) {
-                        portraitLayout.setBackgroundResource(R.color.red2);
-                    } else {
-                        table.setBackgroundResource(R.color.red2);
-                        landscapeLayout.setBackgroundResource(R.color.red2);
-                    }
-                }
-
-                //orange shades
-                else if (itemId == R.id.orange) {
-                    btn.setBackgroundResource(R.drawable.test2);
-                    display.setBackgroundResource(R.color.orange);
-                    if (portraitLayout != null) {
-                        portraitLayout.setBackgroundResource(R.color.orange);
-                    } else {
-                        table.setBackgroundResource(R.color.orange);
-                        landscapeLayout.setBackgroundResource(R.color.orange);
-                    }
-                }
-
-                //black shades
-                else {
-                    btn.setBackgroundResource(R.drawable.test3);
-                    display.setBackgroundResource(R.color.grey);
-                    if (portraitLayout != null) {
-                        portraitLayout.setBackgroundResource(R.color.grey);
-                    } else {
-                        table.setBackgroundResource(R.color.grey);
-                        landscapeLayout.setBackgroundResource(R.color.grey);
-                    }
-                }
-            }
-        }
-    }
-
-
 
 
 }

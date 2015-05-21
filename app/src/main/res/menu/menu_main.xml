@@ -73,23 +73,6 @@
                 android:title="@string/action_change_reset"
                 app:showAsAction="never" />
 
-            <item
-                android:id="@+id/green"
-                android:orderInCategory="70"
-                android:title="@string/green_color" />
-            <item
-                android:id="@+id/orange"
-                android:orderInCategory="75"
-                android:title="@string/orange_color" />
-            <item
-                android:id="@+id/black"
-                android:orderInCategory="80"
-                android:title="@string/black_color" />
-
-            <item
-                android:id="@+id/red"
-                android:orderInCategory="100"
-                android:title="@string/red_color" />
 
         </menu>
 

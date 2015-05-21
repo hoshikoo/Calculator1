@@ -37,11 +37,6 @@
     <string name="b0">0</string>
     <string name="bDot">.</string>
     <string name="happy_button">Happy</string>
-    <string name="green_color">Irish Theme</string>
-    <string name="red_color">USSR Theme</string>
-    <string name="black_color">Classic Theme</string>
-    <string name="orange_color">Summer Theme</string>
-
 
     <string name="action_change_theme_dark">Fonts to white</string>
     <string name="action_change_theme_light">Fonts to black</string>
@@ -54,7 +49,5 @@
     <string name="setting">Customize</string>
     <string name="action_font_change3">Fonts 3</string>
     <string name="action_change_reset">Reset</string>
-
-
-    <item name="action_change_theme_reset" type="id">Reset</item>
+    <item name="action_change_reset" type="id">Reset</item>
 </resources>
