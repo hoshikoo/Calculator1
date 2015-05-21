@@ -5,10 +5,14 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.TypedValue;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TableLayout;
@@ -18,6 +22,7 @@ import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -53,6 +58,7 @@ public class MainActivity extends ActionBarActivity {
     Button bXToPow2;
     Button bEqual;
     Button bPerCent;
+    Button bCurious;
 
     Button b1;
     Button b2;
@@ -79,6 +85,7 @@ public class MainActivity extends ActionBarActivity {
     MediaPlayer mMediaPlayer2;
     MediaPlayer mMediaPlayer3;
     MediaPlayer mMediaPlayer4;
+    MediaPlayer mMediaPlayer5;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -147,8 +154,7 @@ public class MainActivity extends ActionBarActivity {
                     mMediaPlayer2.setVolume(1,1);
                     mMediaPlayer3.setVolume(1,1);
                     mMediaPlayer4.setVolume(1,1);
-
-
+                    mMediaPlayer5.setVolume(1,1);
 
                 }else{
 
@@ -156,18 +162,11 @@ public class MainActivity extends ActionBarActivity {
                     mMediaPlayer2.setVolume(0,0);
                     mMediaPlayer3.setVolume(0,0);
                     mMediaPlayer4.setVolume(0,0);
+                    mMediaPlayer5.setVolume(0,0);
                 }
 
             }
         });
-
-
-
-
-
-
-
-
 
 
         ArrayList<Button> buttons = new ArrayList<Button>();
@@ -203,7 +202,7 @@ public class MainActivity extends ActionBarActivity {
         bXToPow2 = (Button) findViewById(R.id.button_x_pow_2);
         bEqual = (Button) findViewById(R.id.b_equal);
         bPerCent = (Button) findViewById(R.id.button_per_cent);
-
+        bCurious = (Button) findViewById(R.id.button_happy);
 
 
         buttons.add(b1);
@@ -225,14 +224,20 @@ public class MainActivity extends ActionBarActivity {
         buttons.add(bClosedParen);
         buttons.add(bEqual);
 
-
+        for (Button b : buttons) {
+            b.setBackgroundResource(R.drawable.test);
+        }
 
         mMediaPlayer1 = MediaPlayer.create(getApplicationContext(), R.raw.clicksound);
+        mMediaPlayer2 = MediaPlayer.create(getApplicationContext(), R.raw.clicksound);
+        mMediaPlayer3 = MediaPlayer.create(getApplicationContext(), R.raw.clicksound2);
+        mMediaPlayer4 = MediaPlayer.create(getApplicationContext(), R.raw.robotblip);
+        mMediaPlayer5 = MediaPlayer.create(getApplicationContext(), R.raw.ringingsound);
+
 
 
         for (Button btn : buttons) {
             btn.setOnClickListener(new View.OnClickListener() {
-
 
                 @Override
                 public void onClick(View view) {
@@ -295,10 +300,7 @@ public class MainActivity extends ActionBarActivity {
             });
         }
 
-        mMediaPlayer2 = MediaPlayer.create(getApplicationContext(), R.raw.clicksound);
-        mMediaPlayer3 = MediaPlayer.create(getApplicationContext(), R.raw.clicksound2);
-        mMediaPlayer4 = MediaPlayer.create(getApplicationContext(), R.raw.robotblip);
-        //mMediaPlayer5 = MediaPlayer.create(getApplicationContext(), R.raw.happy);
+
 
         bClear.setOnClickListener(new View.OnClickListener() {
 
@@ -462,6 +464,36 @@ public class MainActivity extends ActionBarActivity {
                 mMediaPlayer4.start();
             }
         });
+
+        if (bCurious != null) {
+            bCurious.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    // create layout for a toast
+                    LayoutInflater inflater = getLayoutInflater();
+
+                    View toastLayout = inflater.inflate(R.layout.toast_layout,
+                            (ViewGroup) findViewById(R.id.id_toast_layout));
+
+                    //generate a random joke
+                    int jokeID = getRandomJoke();
+
+                    // set an image
+                    ImageView image = (ImageView) toastLayout.findViewById(R.id.image);
+                    image.setImageResource(jokeID);
+
+                    // display a toast
+                    Toast toast = new Toast(getApplicationContext());
+                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.setDuration(Toast.LENGTH_LONG);
+                    toast.setView(toastLayout);
+                    toast.show();
+
+                    mMediaPlayer5.start();
+                }
+            });
+        }
 
 //
 //        ArrayList<Button> restOfBtn = new ArrayList<Button>();
@@ -632,6 +664,25 @@ public class MainActivity extends ActionBarActivity {
         Toast.makeText(MainActivity.this, item.getTitle(), Toast.LENGTH_SHORT).show();
         return super.onOptionsItemSelected(item);
     }
+
+    //method to randomly show a joke through toast
+    public Integer getRandomJoke() {
+        ArrayList<Integer> jokes = new ArrayList<Integer>();
+        jokes.add(R.drawable.joke1);
+        jokes.add(R.drawable.joke2);
+        jokes.add(R.drawable.joke3);
+        jokes.add(R.drawable.joke4);
+        jokes.add(R.drawable.joke6);
+        jokes.add(R.drawable.joke7);
+        jokes.add(R.drawable.joke8);
+        jokes.add(R.drawable.joke9);
+        jokes.add(R.drawable.joke0);
+
+        Random ran = new Random();
+        int Idx = ran.nextInt(8);
+        return jokes.get(Idx);
+    }
+
 
 
 
