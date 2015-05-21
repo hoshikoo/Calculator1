@@ -37,6 +37,10 @@
     <string name="b0">0</string>
     <string name="bDot">.</string>
     <string name="happy_button">Happy</string>
+    <string name="green_color">Irish Theme</string>
+    <string name="red_color">USSR Theme</string>
+    <string name="black_color">Classic Theme</string>
+    <string name="orange_color">Summer Theme</string>
 
 
     <string name="action_change_theme_dark">Fonts to white</string>

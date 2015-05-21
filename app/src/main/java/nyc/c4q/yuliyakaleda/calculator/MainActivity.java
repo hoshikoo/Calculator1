@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TableLayout;
 import android.widget.TextView;
@@ -28,12 +29,15 @@ import java.util.Random;
 public class MainActivity extends ActionBarActivity {
 
     private static final String CHOSEN_THEME_ID = "chosen_theme_id";
+    private static final String DISPLAY_COLOR_KEY = "colorChanges" ;
 
     private static final String DISPLAY_BACKGROUND_COLOR="table_background_color";
     private static final String DISPLAY_FONT="display_font";
 
 
-
+    LinearLayout portraitLayout;
+    RelativeLayout landscapeLayout;
+    TableLayout table;
     TextView display;
 
     Button bClear;
@@ -73,6 +77,9 @@ public class MainActivity extends ActionBarActivity {
 
     private static final String DISPLAY_RESULT_KEY = "displayResult";
 
+
+    int currentScreenColor;
+    ArrayList<Button> buttons;
     String result = "testing";
 
 
@@ -223,6 +230,12 @@ public class MainActivity extends ActionBarActivity {
         buttons.add(bOpenParen);
         buttons.add(bClosedParen);
         buttons.add(bEqual);
+
+
+        portraitLayout = (LinearLayout) findViewById(R.id.portrait);
+        landscapeLayout = (RelativeLayout) findViewById(R.id.landscape);
+        table = (TableLayout) findViewById(R.id.table);
+
 
         for (Button b : buttons) {
             b.setBackgroundResource(R.drawable.test);
@@ -495,45 +508,11 @@ public class MainActivity extends ActionBarActivity {
             });
         }
 
-//
-//        ArrayList<Button> restOfBtn = new ArrayList<Button>();
-//
-//        restOfBtn.add(bClear);
-//        restOfBtn.add(bSin);
-//        restOfBtn.add(bCos);
-//        restOfBtn.add(bTan);
-//        restOfBtn.add(bLN);
-//        restOfBtn.add(bLog);
-//        restOfBtn.add(bOneDivideX );
-//        restOfBtn.add(bAbs);
-//        restOfBtn.add(bYToPowX);
-//        restOfBtn.add(bPI);
-//        restOfBtn.add(bE);
-//        restOfBtn.add(bEToPowX);
-//        restOfBtn.add(bXToPow2);
-//        restOfBtn.add(bPerCent);
-//
-//        for (Button restBtn : restOfBtn ) {
-//            restBtn.setOnClickListener(new View.OnClickListener() {
-//
-//                private MediaPlayer mMediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.clicksound);
-//
-//                @Override
-//                public void onClick(View view) {
-//                    mMediaPlayer.start();
-//                }
-//            });
-//        }
-
-
         if (savedInstanceState != null) {
             String displayResult = savedInstanceState.getString(DISPLAY_RESULT_KEY);
             display.setText(displayResult);
-
+            getUserSelectionStyle(currentScreenColor);
         }
-
-
-
     }
 
 
@@ -548,6 +527,7 @@ public class MainActivity extends ActionBarActivity {
         outState.putString(DISPLAY_FONT, fontsFamily);
         outState.putString(DISPLAY_RESULT_KEY, display.getText().toString());
 
+        outState.putInt(DISPLAY_COLOR_KEY, currentScreenColor);
     }
 
     @Override
@@ -662,6 +642,11 @@ public class MainActivity extends ActionBarActivity {
         }
 
         Toast.makeText(MainActivity.this, item.getTitle(), Toast.LENGTH_SHORT).show();
+
+        currentScreenColor = item.getItemId();
+        getUserSelectionStyle(currentScreenColor);
+//        return true;
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -681,6 +666,80 @@ public class MainActivity extends ActionBarActivity {
         Random ran = new Random();
         int Idx = ran.nextInt(8);
         return jokes.get(Idx);
+    }
+
+    //method that sets a certain shade of color for all the layout elements
+    public void getUserSelectionStyle(int itemId) {
+        ArrayList<Button> colorButtons = new ArrayList<Button>();
+        colorButtons.addAll(buttons);
+        colorButtons.add(bSin);
+        colorButtons.add(bCos);
+        colorButtons.add(bTan);
+        colorButtons.add(bLN);
+        colorButtons.add(bLog);
+        colorButtons.add(bOneDivideX);
+        colorButtons.add(bAbs);
+        colorButtons.add(bYToPowX);
+        colorButtons.add(bPI);
+        colorButtons.add(bE);
+        colorButtons.add(bEToPowX);
+        colorButtons.add(bXToPow2);
+        colorButtons.add(bPerCent);
+        colorButtons.add(bCurious);
+
+        for (Button btn : colorButtons) {
+            if (btn != null) {
+
+                //green shades
+                if (itemId == R.id.green) {
+                    btn.setBackgroundResource(R.drawable.test4);
+                    display.setBackgroundResource(R.color.green2);
+                    if (portraitLayout != null) {
+                        portraitLayout.setBackgroundResource(R.color.green2);
+                    } else {
+                        table.setBackgroundResource(R.color.green2);
+                        landscapeLayout.setBackgroundResource(R.color.green2);
+                    }
+
+                }
+
+                //red shades
+                else if (itemId == R.id.red) {
+                    btn.setBackgroundResource(R.drawable.test1);
+                    display.setBackgroundResource(R.color.red2);
+                    if (portraitLayout != null) {
+                        portraitLayout.setBackgroundResource(R.color.red2);
+                    } else {
+                        table.setBackgroundResource(R.color.red2);
+                        landscapeLayout.setBackgroundResource(R.color.red2);
+                    }
+                }
+
+                //orange shades
+                else if (itemId == R.id.orange) {
+                    btn.setBackgroundResource(R.drawable.test2);
+                    display.setBackgroundResource(R.color.orange);
+                    if (portraitLayout != null) {
+                        portraitLayout.setBackgroundResource(R.color.orange);
+                    } else {
+                        table.setBackgroundResource(R.color.orange);
+                        landscapeLayout.setBackgroundResource(R.color.orange);
+                    }
+                }
+
+                //black shades
+                else {
+                    btn.setBackgroundResource(R.drawable.test3);
+                    display.setBackgroundResource(R.color.grey);
+                    if (portraitLayout != null) {
+                        portraitLayout.setBackgroundResource(R.color.grey);
+                    } else {
+                        table.setBackgroundResource(R.color.grey);
+                        landscapeLayout.setBackgroundResource(R.color.grey);
+                    }
+                }
+            }
+        }
     }
 
 
