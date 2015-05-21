@@ -73,9 +73,12 @@ public class MainActivity extends ActionBarActivity {
     private int chosenTheme = 0;
     private int tableBackgroundColor = 0;
     private String fontsFamily="";
-    private MediaPlayer mMediaPlayer1;
-    private Switch soundSwitch;
 
+    private Switch soundSwitch;
+    MediaPlayer mMediaPlayer1;
+    MediaPlayer mMediaPlayer2;
+    MediaPlayer mMediaPlayer3;
+    MediaPlayer mMediaPlayer4;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -139,13 +142,20 @@ public class MainActivity extends ActionBarActivity {
                                          boolean isChecked) {
 
                 if(isChecked){
-                    if(mMediaPlayer1==null){
-                        mMediaPlayer1 = MediaPlayer.create(getApplicationContext(), R.raw.clicksound);
-                    }
+
+                    mMediaPlayer1.setVolume(1,1);
+                    mMediaPlayer2.setVolume(1,1);
+                    mMediaPlayer3.setVolume(1,1);
+                    mMediaPlayer4.setVolume(1,1);
+
+
 
                 }else{
 
-                    mMediaPlayer1 = null;
+                    mMediaPlayer1.setVolume(0,0);
+                    mMediaPlayer2.setVolume(0,0);
+                    mMediaPlayer3.setVolume(0,0);
+                    mMediaPlayer4.setVolume(0,0);
                 }
 
             }
@@ -217,10 +227,12 @@ public class MainActivity extends ActionBarActivity {
 
 
 
+        mMediaPlayer1 = MediaPlayer.create(getApplicationContext(), R.raw.clicksound);
 
 
         for (Button btn : buttons) {
             btn.setOnClickListener(new View.OnClickListener() {
+
 
                 @Override
                 public void onClick(View view) {
@@ -283,166 +295,171 @@ public class MainActivity extends ActionBarActivity {
             });
         }
 
+        mMediaPlayer2 = MediaPlayer.create(getApplicationContext(), R.raw.clicksound);
+        mMediaPlayer3 = MediaPlayer.create(getApplicationContext(), R.raw.clicksound2);
+        mMediaPlayer4 = MediaPlayer.create(getApplicationContext(), R.raw.robotblip);
+        //mMediaPlayer5 = MediaPlayer.create(getApplicationContext(), R.raw.happy);
+
         bClear.setOnClickListener(new View.OnClickListener() {
-            MediaPlayer mMediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.clicksound);
+
             @Override
             public void onClick(View view) {
                 display.setText("");
-                mMediaPlayer.start();
+                mMediaPlayer3.start();
             }
         });
 
         if (bSin != null) {
             bSin.setOnClickListener(new View.OnClickListener() {
-                MediaPlayer mMediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.clicksound);
+
                 @Override
                 public void onClick(View view) {
                     display.append("sin");
-                    mMediaPlayer.start();
+                    mMediaPlayer2.start();
                 }
             });
         }
 
         if (bCos != null) {
             bCos.setOnClickListener(new View.OnClickListener() {
-                MediaPlayer mMediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.clicksound);
+
                 @Override
                 public void onClick(View view) {
                     display.append("cos");
-                    mMediaPlayer.start();
+                    mMediaPlayer2.start();
                 }
             });
         }
 
         if (bTan != null) {
             bTan.setOnClickListener(new View.OnClickListener() {
-                MediaPlayer mMediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.clicksound);
+
                 @Override
                 public void onClick(View view) {
                     display.append("tan");
-                    mMediaPlayer.start();
+                    mMediaPlayer2.start();
                 }
             });
         }
 
         if (bLN != null) {
             bLN.setOnClickListener(new View.OnClickListener() {
-                MediaPlayer mMediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.clicksound);
+
                 @Override
                 public void onClick(View view) {
                     display.append("ln");
-                    mMediaPlayer.start();
+                    mMediaPlayer2.start();
                 }
             });
         }
 
         if (bLog != null) {
             bLog.setOnClickListener(new View.OnClickListener() {
-                MediaPlayer mMediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.clicksound);
+
                 @Override
                 public void onClick(View view) {
                     display.append("log");
-                    mMediaPlayer.start();
+                    mMediaPlayer2.start();
                 }
             });
         }
 
         if (bOneDivideX != null) {
             bOneDivideX.setOnClickListener(new View.OnClickListener() {
-                MediaPlayer mMediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.clicksound);
+
                 @Override
                 public void onClick(View view) {
                     display.append("1/");
-                    mMediaPlayer.start();
+                    mMediaPlayer2.start();
                 }
             });
         }
 
         if (bAbs != null) {
             bAbs.setOnClickListener(new View.OnClickListener() {
-                MediaPlayer mMediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.clicksound);
+
                 @Override
                 public void onClick(View view) {
                     display.append("|");
-                    mMediaPlayer.start();
+                    mMediaPlayer2.start();
                 }
             });
         }
 
         if (bYToPowX != null) {
             bYToPowX.setOnClickListener(new View.OnClickListener() {
-                MediaPlayer mMediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.clicksound);
+
                 @Override
                 public void onClick(View view) {
                     display.append("^");
-                    mMediaPlayer.start();
+                    mMediaPlayer2.start();
                 }
             });
         }
 
         if (bPI != null) {
             bPI.setOnClickListener(new View.OnClickListener() {
-                MediaPlayer mMediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.clicksound);
+
                 @Override
                 public void onClick(View view) {
                     display.append("pi");
-                    mMediaPlayer.start();
+                    mMediaPlayer2.start();
                 }
             });
         }
 
         if (bE != null) {
             bE.setOnClickListener(new View.OnClickListener() {
-                MediaPlayer mMediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.clicksound);
+
                 @Override
                 public void onClick(View view) {
                     display.append("E");
-                    mMediaPlayer.start();
+                    mMediaPlayer2.start();
                 }
             });
         }
 
         if (bEToPowX != null) {
             bEToPowX.setOnClickListener(new View.OnClickListener() {
-                MediaPlayer mMediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.clicksound);
+
                 @Override
                 public void onClick(View view) {
                     display.append("e^");
-                    mMediaPlayer.start();
+                    mMediaPlayer2.start();
                 }
             });
         }
 
         if (bXToPow2 != null) {
             bXToPow2.setOnClickListener(new View.OnClickListener() {
-                MediaPlayer mMediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.clicksound);
+
                 @Override
                 public void onClick(View view) {
                     display.append("^2");
-                    mMediaPlayer.start();
+                    mMediaPlayer2.start();
                 }
             });
         }
 
         if (bPerCent != null) {
             bPerCent.setOnClickListener(new View.OnClickListener() {
-                MediaPlayer mMediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.clicksound);
+
                 @Override
                 public void onClick(View view) {
                     display.append(bPerCent.getText());
-                    mMediaPlayer.start();
+                    mMediaPlayer2.start();
                 }
             });
         }
 
         bEqual.setOnClickListener(new View.OnClickListener() {
-            MediaPlayer mMediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.robotblip);
+
             @Override
             public void onClick(View view) {
                 String input = display.getText().toString();
                 result = Parser.parse(input);
                 display.setText(result);
-                mMediaPlayer.start();
+                mMediaPlayer4.start();
             }
         });
 
@@ -523,9 +540,7 @@ public class MainActivity extends ActionBarActivity {
         TableLayout tableLayout = (TableLayout) findViewById(R.id.table);
         LinearLayout relativeLayout = (LinearLayout )findViewById(R.id.main_layout);
 
-
         switch (item.getItemId()) {
-
 
             case R.id.action_change_theme_dark:
 
@@ -533,15 +548,12 @@ public class MainActivity extends ActionBarActivity {
                 if (chosenTheme != R.style.AppThemeDark) {
                     chosenTheme = R.style.AppThemeDark;
                     recreate();
-
-
                 }
 
                 break;
 
             case R.id.action_change_theme_light:
 
-                //tableBrackgroundColor = getResources().getColor(R.tableBrackgroundColor.green);
                 if(chosenTheme != R.style.AppThemeLight) {
                     chosenTheme = R.style.AppThemeLight;
                     recreate();
@@ -570,11 +582,7 @@ public class MainActivity extends ActionBarActivity {
                 tableBackgroundColor = getResources().getColor(R.color.yellow);
                 break;
 
-
-
-
             case R.id.action_font_change:
-
 
                 Typeface typeFace=Typeface.createFromAsset(getAssets(),"fonts/digital-7.ttf");
                 display.setTypeface(typeFace);
@@ -585,7 +593,6 @@ public class MainActivity extends ActionBarActivity {
 
             case R.id.action_font_change2:
 
-
                 Typeface typeFace2=Typeface.createFromAsset(getAssets(),"fonts/dotty.ttf");
                 display.setTypeface(typeFace2);
                 fontsFamily ="fonts/dotty.ttf";
@@ -595,8 +602,6 @@ public class MainActivity extends ActionBarActivity {
 
             case R.id.action_font_change3:
 
-
-//                Typeface typeFace3=Typeface.createFromAsset(getAssets(),"fonts/dotty.ttf");
                 display.setTypeface(Typeface.SANS_SERIF);
                 fontsFamily ="";
                 display.setTextSize(TypedValue.COMPLEX_UNIT_DIP,40);
@@ -605,18 +610,18 @@ public class MainActivity extends ActionBarActivity {
                 break;
 
 
-            case R.id.action_change_theme_reset:
+            case R.id.action_change_reset:
 
-                chosenTheme = R.style.AppTheme;
-                tableBackgroundColor =0;
-                fontsFamily="";
-                recreate();
-
-                break;
+                if (chosenTheme != R.style.AppThemeDark) {
+                    chosenTheme = R.style.AppThemeDark;
+                    tableBackgroundColor =0;
+                    fontsFamily="";
+                    recreate();
+                }
 
 
             default:
-
+                break;
         }
 
         if (tableBackgroundColor != 0) {
