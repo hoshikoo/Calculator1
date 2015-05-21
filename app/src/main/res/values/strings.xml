@@ -38,4 +38,19 @@
     <string name="bDot">.</string>
     <string name="happy_button">Happy</string>
 
+
+    <string name="action_change_theme_dark">Fonts to white</string>
+    <string name="action_change_theme_light">Fonts to black</string>
+    <string name="action_change_background_red">Background to red</string>
+    <string name="action_change_background_green">Background to green</string>
+    <string name="action_change_background_blue">Background to blue</string>
+    <string name="action_change_background_yellow">Background to yellow</string>
+    <string name="action_font_change">Fonts 1</string>
+    <string name="action_font_change2">Fonts 2</string>
+    <string name="setting">Customize</string>
+    <string name="action_font_change3">Fonts 3</string>
+    <string name="action_change_reset">Reset</string>
+
+
+    <item name="action_change_theme_reset" type="id">Reset</item>
 </resources>

@@ -1,15 +1,33 @@
 package nyc.c4q.yuliyakaleda.calculator;
 
-import android.support.v7.app.ActionBarActivity;
+import android.graphics.Typeface;
+import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
+import android.util.TypedValue;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.Switch;
+import android.widget.TableLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 
 import java.util.ArrayList;
 
 
 public class MainActivity extends ActionBarActivity {
+
+    private static final String CHOSEN_THEME_ID = "chosen_theme_id";
+
+    private static final String DISPLAY_BACKGROUND_COLOR="table_background_color";
+    private static final String DISPLAY_FONT="display_font";
+
+
 
     TextView display;
 
@@ -48,14 +66,99 @@ public class MainActivity extends ActionBarActivity {
     Button b0;
 
     private static final String DISPLAY_RESULT_KEY = "displayResult";
+
     String result = "testing";
 
-    @Override
+
+    private int chosenTheme = 0;
+    private int tableBackgroundColor = 0;
+    private String fontsFamily="";
+    private MediaPlayer mMediaPlayer1;
+    private Switch soundSwitch;
+
+
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (savedInstanceState != null) {
+            chosenTheme = (int) savedInstanceState.get(CHOSEN_THEME_ID);
+            tableBackgroundColor = (int) savedInstanceState.get(DISPLAY_BACKGROUND_COLOR);
+            fontsFamily = (String) savedInstanceState.get(DISPLAY_FONT);
+
+            if (chosenTheme > 0) {
+                setTheme(chosenTheme);
+            }
+
+        }
+
+
         setContentView(R.layout.activity_main);
 
+//        now that the layout is specified, we can get the view items to change color
+        LinearLayout relativeLayout = (LinearLayout )findViewById(R.id.main_layout);
+        if (tableBackgroundColor != 0) {
+
+            relativeLayout.setBackgroundColor(tableBackgroundColor);
+        }
+
+
         display = (TextView) findViewById(R.id.enter_numbers);
+
+
+
+        if (!fontsFamily.isEmpty()) {
+            Typeface typeFace=Typeface.createFromAsset(getAssets(),fontsFamily);
+
+            display.setTypeface(typeFace);
+
+            if(fontsFamily.equals("fonts/dotty.ttf")){
+
+                display.setTextSize(TypedValue.COMPLEX_UNIT_DIP,80);
+
+            }else if (fontsFamily.equals("fonts/digital-7.ttf")){
+
+                display.setTextSize(TypedValue.COMPLEX_UNIT_DIP,50);
+
+            }else {
+                display.setTextSize(TypedValue.COMPLEX_UNIT_DIP,40);
+            }
+
+
+        }
+
+        soundSwitch = (Switch) findViewById(R.id.sound_switch);
+
+        //set the switch to on
+        soundSwitch.setChecked(true);
+        //attach a listener to check for changes in state
+        soundSwitch.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView,
+                                         boolean isChecked) {
+
+                if(isChecked){
+                    if(mMediaPlayer1==null){
+                        mMediaPlayer1 = MediaPlayer.create(getApplicationContext(), R.raw.clicksound);
+                    }
+
+                }else{
+
+                    mMediaPlayer1 = null;
+                }
+
+            }
+        });
+
+
+
+
+
+
+
+
+
 
         ArrayList<Button> buttons = new ArrayList<Button>();
         b1 = (Button) findViewById(R.id.button_1);
@@ -91,6 +194,8 @@ public class MainActivity extends ActionBarActivity {
         bEqual = (Button) findViewById(R.id.b_equal);
         bPerCent = (Button) findViewById(R.id.button_per_cent);
 
+
+
         buttons.add(b1);
         buttons.add(b2);
         buttons.add(b3);
@@ -111,215 +216,419 @@ public class MainActivity extends ActionBarActivity {
         buttons.add(bEqual);
 
 
-            for (Button btn : buttons) {
-                btn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        switch (view.getId()) {
-                            case R.id.button_1:
-                                display.append(b1.getText());
-                                break;
-                            case R.id.button_2:
-                                display.append(b2.getText());
-                                break;
-                            case R.id.button_3:
-                                display.append(b3.getText());
-                                break;
-                            case R.id.button_4:
-                                display.append(b4.getText());
-                                break;
-                            case R.id.button_5:
-                                display.append(b5.getText());
-                                break;
-                            case R.id.button_6:
-                                display.append(b6.getText());
-                                break;
-                            case R.id.button_7:
-                                display.append(b7.getText());
-                                break;
-                            case R.id.button_8:
-                                display.append(b8.getText());
-                                break;
-                            case R.id.button_9:
-                                display.append(b9.getText());
-                                break;
-                            case R.id.button_0:
-                                display.append(b0.getText());
-                                break;
-                            case R.id.button_dot:
-                                display.append(bDot.getText());
-                                break;
-                            case R.id.sum:
-                                display.append(bSum.getText());
-                                break;
-                            case R.id.subtraction:
-                                display.append(bSubtraction.getText());
-                                break;
-                            case R.id.division:
-                                display.append(bDivision.getText());
-                                break;
-                            case R.id.multiplication:
-                                display.append(bMultiplication.getText());
-                                break;
-                            case R.id.open_parenthesis:
-                                display.append(bOpenParen.getText());
-                                break;
-                            case R.id.closed_parenthesis:
-                                display.append(bClosedParen.getText());
-                                break;
-                        }
-                    }
-                });
-            }
 
-            bClear.setOnClickListener(new View.OnClickListener() {
+
+
+        for (Button btn : buttons) {
+            btn.setOnClickListener(new View.OnClickListener() {
 
                 @Override
                 public void onClick(View view) {
-                    display.setText("");
+                    mMediaPlayer1.start();
+
+                    switch (view.getId()) {
+                        case R.id.button_1:
+                            display.append(b1.getText());
+                            break;
+                        case R.id.button_2:
+                            display.append(b2.getText());
+                            break;
+                        case R.id.button_3:
+                            display.append(b3.getText());
+                            break;
+                        case R.id.button_4:
+                            display.append(b4.getText());
+                            break;
+                        case R.id.button_5:
+                            display.append(b5.getText());
+                            break;
+                        case R.id.button_6:
+                            display.append(b6.getText());
+                            break;
+                        case R.id.button_7:
+                            display.append(b7.getText());
+                            break;
+                        case R.id.button_8:
+                            display.append(b8.getText());
+                            break;
+                        case R.id.button_9:
+                            display.append(b9.getText());
+                            break;
+                        case R.id.button_0:
+                            display.append(b0.getText());
+                            break;
+                        case R.id.button_dot:
+                            display.append(bDot.getText());
+                            break;
+                        case R.id.sum:
+                            display.append(bSum.getText());
+                            break;
+                        case R.id.subtraction:
+                            display.append(bSubtraction.getText());
+                            break;
+                        case R.id.division:
+                            display.append(bDivision.getText());
+                            break;
+                        case R.id.multiplication:
+                            display.append(bMultiplication.getText());
+                            break;
+                        case R.id.open_parenthesis:
+                            display.append(bOpenParen.getText());
+                            break;
+                        case R.id.closed_parenthesis:
+                            display.append(bClosedParen.getText());
+                            break;
+                    }
                 }
             });
-
-            if (bSin != null) {
-                bSin.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        display.append("sin");
-                    }
-                });
-            }
-
-            if (bCos != null) {
-                bCos.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        display.append("cos");
-                    }
-                });
-            }
-
-            if (bTan != null) {
-                bTan.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        display.append("tan");
-                    }
-                });
-            }
-
-            if (bLN != null) {
-                bLN.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        display.append("ln");
-                    }
-                });
-            }
-
-            if (bLog != null) {
-                bLog.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        display.append("Log");
-                    }
-                });
-            }
-
-            if (bOneDivideX != null) {
-                bOneDivideX.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        display.append("1/");
-                    }
-                });
-            }
-
-            if (bAbs != null) {
-                bAbs.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        display.append("|");
-                    }
-                });
-            }
-
-            if (bYToPowX != null) {
-                bYToPowX.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        display.append("^");
-                    }
-                });
-            }
-
-            if (bPI != null) {
-                bPI.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        display.append("pi");
-                    }
-                });
-            }
-
-            if (bE != null) {
-                bE.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        display.append("E");
-                    }
-                });
-            }
-
-            if (bEToPowX != null) {
-                bEToPowX.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        display.append("e^");
-                    }
-                });
-            }
-
-            if (bXToPow2 != null) {
-                bXToPow2.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        display.append("^2");
-                    }
-                });
-            }
-
-            if (bPerCent != null) {
-                bPerCent.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        display.append(bPerCent.getText());
-                    }
-                });
-            }
-
-            bEqual.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    String input = display.getText().toString();
-                    result = Parser.parse(input);
-                    display.setText(result);
-                }
-            });
-
-
-            if (savedInstanceState != null) {
-                String displayResult = savedInstanceState.getString(DISPLAY_RESULT_KEY);
-                display.setText(displayResult);
-
-            }
         }
+
+        bClear.setOnClickListener(new View.OnClickListener() {
+            MediaPlayer mMediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.clicksound);
+            @Override
+            public void onClick(View view) {
+                display.setText("");
+                mMediaPlayer.start();
+            }
+        });
+
+        if (bSin != null) {
+            bSin.setOnClickListener(new View.OnClickListener() {
+                MediaPlayer mMediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.clicksound);
+                @Override
+                public void onClick(View view) {
+                    display.append("sin");
+                    mMediaPlayer.start();
+                }
+            });
+        }
+
+        if (bCos != null) {
+            bCos.setOnClickListener(new View.OnClickListener() {
+                MediaPlayer mMediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.clicksound);
+                @Override
+                public void onClick(View view) {
+                    display.append("cos");
+                    mMediaPlayer.start();
+                }
+            });
+        }
+
+        if (bTan != null) {
+            bTan.setOnClickListener(new View.OnClickListener() {
+                MediaPlayer mMediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.clicksound);
+                @Override
+                public void onClick(View view) {
+                    display.append("tan");
+                    mMediaPlayer.start();
+                }
+            });
+        }
+
+        if (bLN != null) {
+            bLN.setOnClickListener(new View.OnClickListener() {
+                MediaPlayer mMediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.clicksound);
+                @Override
+                public void onClick(View view) {
+                    display.append("ln");
+                    mMediaPlayer.start();
+                }
+            });
+        }
+
+        if (bLog != null) {
+            bLog.setOnClickListener(new View.OnClickListener() {
+                MediaPlayer mMediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.clicksound);
+                @Override
+                public void onClick(View view) {
+                    display.append("log");
+                    mMediaPlayer.start();
+                }
+            });
+        }
+
+        if (bOneDivideX != null) {
+            bOneDivideX.setOnClickListener(new View.OnClickListener() {
+                MediaPlayer mMediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.clicksound);
+                @Override
+                public void onClick(View view) {
+                    display.append("1/");
+                    mMediaPlayer.start();
+                }
+            });
+        }
+
+        if (bAbs != null) {
+            bAbs.setOnClickListener(new View.OnClickListener() {
+                MediaPlayer mMediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.clicksound);
+                @Override
+                public void onClick(View view) {
+                    display.append("|");
+                    mMediaPlayer.start();
+                }
+            });
+        }
+
+        if (bYToPowX != null) {
+            bYToPowX.setOnClickListener(new View.OnClickListener() {
+                MediaPlayer mMediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.clicksound);
+                @Override
+                public void onClick(View view) {
+                    display.append("^");
+                    mMediaPlayer.start();
+                }
+            });
+        }
+
+        if (bPI != null) {
+            bPI.setOnClickListener(new View.OnClickListener() {
+                MediaPlayer mMediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.clicksound);
+                @Override
+                public void onClick(View view) {
+                    display.append("pi");
+                    mMediaPlayer.start();
+                }
+            });
+        }
+
+        if (bE != null) {
+            bE.setOnClickListener(new View.OnClickListener() {
+                MediaPlayer mMediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.clicksound);
+                @Override
+                public void onClick(View view) {
+                    display.append("E");
+                    mMediaPlayer.start();
+                }
+            });
+        }
+
+        if (bEToPowX != null) {
+            bEToPowX.setOnClickListener(new View.OnClickListener() {
+                MediaPlayer mMediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.clicksound);
+                @Override
+                public void onClick(View view) {
+                    display.append("e^");
+                    mMediaPlayer.start();
+                }
+            });
+        }
+
+        if (bXToPow2 != null) {
+            bXToPow2.setOnClickListener(new View.OnClickListener() {
+                MediaPlayer mMediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.clicksound);
+                @Override
+                public void onClick(View view) {
+                    display.append("^2");
+                    mMediaPlayer.start();
+                }
+            });
+        }
+
+        if (bPerCent != null) {
+            bPerCent.setOnClickListener(new View.OnClickListener() {
+                MediaPlayer mMediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.clicksound);
+                @Override
+                public void onClick(View view) {
+                    display.append(bPerCent.getText());
+                    mMediaPlayer.start();
+                }
+            });
+        }
+
+        bEqual.setOnClickListener(new View.OnClickListener() {
+            MediaPlayer mMediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.robotblip);
+            @Override
+            public void onClick(View view) {
+                String input = display.getText().toString();
+                result = Parser.parse(input);
+                display.setText(result);
+                mMediaPlayer.start();
+            }
+        });
+
+//
+//        ArrayList<Button> restOfBtn = new ArrayList<Button>();
+//
+//        restOfBtn.add(bClear);
+//        restOfBtn.add(bSin);
+//        restOfBtn.add(bCos);
+//        restOfBtn.add(bTan);
+//        restOfBtn.add(bLN);
+//        restOfBtn.add(bLog);
+//        restOfBtn.add(bOneDivideX );
+//        restOfBtn.add(bAbs);
+//        restOfBtn.add(bYToPowX);
+//        restOfBtn.add(bPI);
+//        restOfBtn.add(bE);
+//        restOfBtn.add(bEToPowX);
+//        restOfBtn.add(bXToPow2);
+//        restOfBtn.add(bPerCent);
+//
+//        for (Button restBtn : restOfBtn ) {
+//            restBtn.setOnClickListener(new View.OnClickListener() {
+//
+//                private MediaPlayer mMediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.clicksound);
+//
+//                @Override
+//                public void onClick(View view) {
+//                    mMediaPlayer.start();
+//                }
+//            });
+//        }
+
+
+        if (savedInstanceState != null) {
+            String displayResult = savedInstanceState.getString(DISPLAY_RESULT_KEY);
+            display.setText(displayResult);
+
+        }
+
+
+
+    }
+
+
+
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
+
+        outState.putInt(CHOSEN_THEME_ID, chosenTheme);
+        outState.putInt(DISPLAY_BACKGROUND_COLOR, tableBackgroundColor);
+        outState.putString(DISPLAY_FONT, fontsFamily);
         outState.putString(DISPLAY_RESULT_KEY, display.getText().toString());
+
     }
 
-}
+    @Override
+    public boolean onMenuOpened(int featureId, Menu menu) {
+        return super.onMenuOpened(featureId, menu);
+    }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        TableLayout tableLayout = (TableLayout) findViewById(R.id.table);
+        LinearLayout relativeLayout = (LinearLayout )findViewById(R.id.main_layout);
+
+
+        switch (item.getItemId()) {
+
+
+            case R.id.action_change_theme_dark:
+
+
+                if (chosenTheme != R.style.AppThemeDark) {
+                    chosenTheme = R.style.AppThemeDark;
+                    recreate();
+
+
+                }
+
+                break;
+
+            case R.id.action_change_theme_light:
+
+                //tableBrackgroundColor = getResources().getColor(R.tableBrackgroundColor.green);
+                if(chosenTheme != R.style.AppThemeLight) {
+                    chosenTheme = R.style.AppThemeLight;
+                    recreate();
+
+                }
+
+                break;
+
+            case R.id.action_change_background_red:
+
+                tableBackgroundColor = getResources().getColor(R.color.red);
+                break;
+
+            case R.id.action_change_background_green:
+
+                tableBackgroundColor = getResources().getColor(R.color.green);
+                break;
+
+            case R.id.action_change_background_blue:
+
+                tableBackgroundColor = getResources().getColor(R.color.blue);
+                break;
+
+            case R.id.action_change_background_yellow:
+
+                tableBackgroundColor = getResources().getColor(R.color.yellow);
+                break;
+
+
+
+
+            case R.id.action_font_change:
+
+
+                Typeface typeFace=Typeface.createFromAsset(getAssets(),"fonts/digital-7.ttf");
+                display.setTypeface(typeFace);
+                fontsFamily = "fonts/digital-7.ttf";
+                display.setTextSize(TypedValue.COMPLEX_UNIT_DIP,50);
+
+                break;
+
+            case R.id.action_font_change2:
+
+
+                Typeface typeFace2=Typeface.createFromAsset(getAssets(),"fonts/dotty.ttf");
+                display.setTypeface(typeFace2);
+                fontsFamily ="fonts/dotty.ttf";
+                display.setTextSize(TypedValue.COMPLEX_UNIT_DIP,80);
+
+                break;
+
+            case R.id.action_font_change3:
+
+
+//                Typeface typeFace3=Typeface.createFromAsset(getAssets(),"fonts/dotty.ttf");
+                display.setTypeface(Typeface.SANS_SERIF);
+                fontsFamily ="";
+                display.setTextSize(TypedValue.COMPLEX_UNIT_DIP,40);
+
+
+                break;
+
+
+            case R.id.action_change_theme_reset:
+
+                chosenTheme = R.style.AppTheme;
+                tableBackgroundColor =0;
+                fontsFamily="";
+                recreate();
+
+                break;
+
+
+            default:
+
+        }
+
+        if (tableBackgroundColor != 0) {
+            //tableLayout.setBackgroundColor(tableBackgroundColor);
+            relativeLayout.setBackgroundColor(tableBackgroundColor);
+        }
+
+        Toast.makeText(MainActivity.this, item.getTitle(), Toast.LENGTH_SHORT).show();
+        return super.onOptionsItemSelected(item);
+    }
+
+
+
+}
 
